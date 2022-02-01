@@ -1,13 +1,35 @@
-const title = 'Урок 2';
-const screens = "Простые, Сложные, Интерактивные";
-const screenPrice = 9;
-const rollback = 50;
-const fullPrice = 100;
-const adaptive = false;
+"use strict";
 
-console.log('Типы данных: \n title - ' + typeof(title) + ',\n fullPrice - ' + typeof(fullPrice) + ',\n adaptive - ' + typeof(adaptive) + '.' );
-console.log('Длина строки: ' + screens.length + '.');
-console.log('Стоимость верстки экранов ' + screenPrice + ' рублей/ долларов/гривен/юани');
-console.log('Стоимость разработки сайта ' + fullPrice + ' рублей/ долларов/гривен/юани');
-console.log(screens.toLowerCase().split(', '));
-console.log('Процент отката посреднику за работу ' + (fullPrice * (rollback/100)));
+const title = prompt("Как называется ваш проект?");
+const screens = prompt("Какие типы экранов нужно разработать?");
+const screenPrice = +prompt("Сколько будет стоить данная работа?");
+const rollback = 50;
+let adaptive = false;
+const adaptiveAnswer = prompt("Нужен ли адаптив на сайте?");
+if (
+  adaptiveAnswer === "да" ||
+  adaptiveAnswer === "true" ||
+  adaptiveAnswer === "нужен"
+) {
+  adaptive = true;
+}
+let services = [];
+for (let i = 0; i < 2; i++) {
+  let service = {};
+  service["name"] = prompt("Какой дополнительный тип услуги нужен?");
+  service["price"] = +prompt("Сколько это будет стоить?");
+  services.push(service);
+}
+let fullPrice = screenPrice + services[0].price + services[1].price;
+let servicePercentPrice = Math.round(fullPrice - rollback);
+
+console.log("Итоговая стоимость: " + servicePercentPrice);
+if (fullPrice >= 30000) {
+  console.log("Даем скидку в 10%");
+} else if (fullPrice < 30000 && fullPrice >= 15000) {
+  console.log("Даем скидку в 5%");
+} else if (fullPrice < 15000 && fullPrice >= 0) {
+  console.log("Скидка не предусмотрена");
+} else {
+  console.log("Что то пошло не так");
+}
