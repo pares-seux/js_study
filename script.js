@@ -6,9 +6,12 @@ const screenPrice = +prompt("Сколько будет стоить данная
 const rollback = 50;
 const adaptive = confirm("Нужен ли адаптив на сайте?");
 const services = createArray();
-const fullPrice = screenPrice + services[0].price + services[1].price;
-const rollbackPrice = fullPrice * (rollback / 100);
-const servicePercentPrice = Math.round(fullPrice - rollbackPrice);
+//const rollbackPrice = fullPrice * (rollback / 100);
+let allServicePrices,
+  fullPrice,
+  servicePercentPrices,
+  rollbackPrice,
+  updatedTitle;
 
 function createArray() {
   const array = [];
@@ -20,35 +23,70 @@ function createArray() {
   }
   return array;
 }
+
+function getFullPrice(firstPrice, secondPrice) {
+  return firstPrice + secondPrice;
+}
+
+function getServicePercentPrices(price, roll) {
+  return Math.round(price - roll);
+}
+
+const showTypeOf = function (variable) {
+  console.log(variable, typeof variable);
+};
+
+const getAllServicePrices = function (array) {
+  return array[0].price + array[1].price;
+};
+
+const getTitle = function (str) {
+  return str[0].toUpperCase() + str.slice(1).toLowerCase();
+};
+
+const getRollbackMessage = function (price) {
+  switch (true) {
+    case price >= 30000:
+      return "Даем скидку в 10%";
+      break;
+    case price >= 15000:
+      return "Даем скидку в 5%";
+      break;
+    case price >= 0:
+      return "Скидка не предусмотрена";
+      break;
+    default:
+      return "Что то пошло не так";
+  }
+};
+
+allServicePrices = getAllServicePrices(services);
+fullPrice = getFullPrice(allServicePrices, screenPrice);
+rollbackPrice = fullPrice * (rollback / 100);
+servicePercentPrices = getServicePercentPrices(fullPrice, rollbackPrice);
+updatedTitle = getTitle(title.trim());
+
 console.log(
   "Типы данных: \n title - " +
-    typeof title +
+    showTypeOf(updatedTitle) +
     ",\n fullPrice - " +
-    typeof fullPrice +
+    showTypeOf(fullPrice) +
     ",\n adaptive - " +
-    typeof adaptive +
+    showTypeOf(adaptive) +
     "."
 );
-console.log("Длина строки: " + screens.length + ".");
+//console.log("Длина строки: " + screens.length + ".");
+console.log(screens.toLowerCase().split(", ") + "");
+console.log(getRollbackMessage(fullPrice));
+console.log("Итоговая стоимость: " + servicePercentPrices);
+
+/*
 console.log(
   "Стоимость верстки экранов " + screenPrice + " рублей/ долларов/гривен/юани"
 );
 console.log(
   "Стоимость разработки сайта " + fullPrice + " рублей/ долларов/гривен/юани"
 );
-console.log(screens.toLowerCase().split(", "));
+
 console.log("Процент отката посреднику за работу " + rollbackPrice);
-console.log("Итоговая стоимость: " + servicePercentPrice);
-switch (true) {
-  case fullPrice >= 30000:
-    console.log("Даем скидку в 10%");
-    break;
-  case fullPrice < 30000 && fullPrice >= 15000:
-    console.log("Даем скидку в 5%");
-    break;
-  case fullPrice < 15000 && fullPrice >= 0:
-    console.log("Скидка не предусмотрена");
-    break;
-  default:
-    console.log("Что то пошло не так");
-}
+*/
