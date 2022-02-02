@@ -5,7 +5,7 @@ const screens = prompt("Какие типы экранов нужно разра
 const screenPrice = +prompt("Сколько будет стоить данная работа?");
 const rollback = 50;
 const adaptive = confirm("Нужен ли адаптив на сайте?");
-const services = createArray();
+const services = writeServices();
 //const rollbackPrice = fullPrice * (rollback / 100);
 let allServicePrices,
   fullPrice,
@@ -13,7 +13,7 @@ let allServicePrices,
   rollbackPrice,
   updatedTitle;
 
-function createArray() {
+function writeServices() {
   const array = [];
   for (let i = 0; i < 2; i++) {
     let service = {};
@@ -37,7 +37,9 @@ const showTypeOf = function (variable) {
 };
 
 const getAllServicePrices = function (array) {
-  return array[0].price + array[1].price;
+  return array.reduce(
+    (previousValue, currentValue) => previousValue.price + currentValue.price
+  );
 };
 
 const getTitle = function (str) {
@@ -75,18 +77,6 @@ console.log(
     showTypeOf(adaptive) +
     "."
 );
-//console.log("Длина строки: " + screens.length + ".");
 console.log(screens.toLowerCase().split(", ") + "");
 console.log(getRollbackMessage(fullPrice));
 console.log("Итоговая стоимость: " + servicePercentPrices);
-
-/*
-console.log(
-  "Стоимость верстки экранов " + screenPrice + " рублей/ долларов/гривен/юани"
-);
-console.log(
-  "Стоимость разработки сайта " + fullPrice + " рублей/ долларов/гривен/юани"
-);
-
-console.log("Процент отката посреднику за работу " + rollbackPrice);
-*/
