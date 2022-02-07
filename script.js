@@ -87,15 +87,10 @@ rollbackPrice = fullPrice * (rollback / 100);
 servicePercentPrices = getServicePercentPrices(fullPrice, rollbackPrice);
 updatedTitle = getTitle(title.trim());
 
-console.log(
-  "Типы данных: \n title - " +
-    showTypeOf(updatedTitle) +
-    ",\n fullPrice - " +
-    showTypeOf(fullPrice) +
-    ",\n adaptive - " +
-    showTypeOf(adaptive) +
-    "."
-);
+console.log("Типы данных: "); 
+    showTypeOf(updatedTitle); 
+    showTypeOf(fullPrice) ;
+    showTypeOf(adaptive);
 console.log(screens.toLowerCase().split(", ") + "");
 console.log(getRollbackMessage(fullPrice));
 console.log("Итоговая стоимость: " + servicePercentPrices);
