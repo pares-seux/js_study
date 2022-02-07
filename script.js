@@ -73,7 +73,7 @@ const appData = {
   },
   logger: function() {
     for (let element in appData) {
-      console.log(element, appData[element]);
+      console.log(element, typeof(appData[element]));
     }
   },
   start: function() {
