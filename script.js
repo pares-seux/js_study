@@ -41,10 +41,11 @@ const appData = {
     appData.adaptive = confirm("Нужен ли адаптив на сайте?");
     do {
       i++;
-      let name = appData.checkName("Какой дополнительный тип услуги нужен?");
+      let name = appData.checkName("Какой дополнительный тип услуги нужен?") + '_' + i;
       appData.services[name] = +appData.checkPrice("Сколько это будет стоить?");
       
     } while (i < 2);
+    console.log(appData.services);
   },
   addPrices: function() {
     appData.screenPrice = appData.screens.reduce(
