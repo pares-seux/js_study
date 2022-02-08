@@ -1,5 +1,25 @@
 "use strict";
 
+const titleH1 = document.getElementsByTagName('h1');
+const buttons = document.getElementsByClassName('handler_btn');
+const addButton = document.querySelector('.screen-btn');
+const inputRange = document.querySelector('.rollback input[type=\'range\']')
+const rangeValue = document.querySelector('.rollback span.range-value');
+const percent = [], numbers = [], totalInput = [];
+let screen = document.querySelectorAll('.screen');
+
+for (let element of document.querySelectorAll('.other-items')) {
+  if (element.classList.contains('percent')) {
+    percent.push(element);
+  } else {
+    numbers.push(element);
+  }
+}
+
+for (let element of document.getElementsByClassName('total-input')) {
+  totalInput.push(element);
+}
+
 const appData = { 
   title: '',
   screens: [],
@@ -32,7 +52,7 @@ const appData = {
   },
   asking: function() {
     let i = 0;
-    appData.title = appData.checkName("Как называется ваш проект?");
+    appData.title = titleH1[0]; //appData.checkName("Как называется ваш проект?");
     for (let i=0; i<2; i++) {
           let name = appData.checkName("Какие типы экранов нужно разработать?" + "");
           let price = +appData.checkPrice("Сколько будет стоить данная работа?");
@@ -97,6 +117,7 @@ const appData = {
   
 }
 
-appData.start();
+
+//appData.start();
 
 
