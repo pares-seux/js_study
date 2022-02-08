@@ -11,8 +11,10 @@ const appData = {
   servicePercentPrices: 0,
   services: {},
   isNumber: function (num) {
-    const regexp = /^\d+$/;
-    return !isNaN(parseFloat(num)) && isFinite(num) && regexp.test(num);
+    return !isNaN(parseFloat(num)) && isFinite(num) && /^\d+$/.test(num);
+  },
+  isString: function (str) {
+    return isNaN(str) && !/^\d+$/.test(str) && /^\w+$/.test(str);
   },
   checkPrice: function (str) {
     let result = prompt(str);
@@ -21,24 +23,33 @@ const appData = {
     }
     return result;
   },
+  checkName: function (str) {
+    let result = prompt(str);
+    while (!appData.isString(result)) {
+      result = prompt(str);
+    }
+    return result;
+  },
   asking: function() {
     let i = 0;
-    appData.title = prompt("Как называется ваш проект?");
+    appData.title = appData.checkName("Как называется ваш проект?");
     for (let i=0; i<2; i++) {
-          let name = prompt("Какие типы экранов нужно разработать?" + "");
+          let name = appData.checkName("Какие типы экранов нужно разработать?" + "");
           let price = +appData.checkPrice("Сколько будет стоить данная работа?");
           appData.screens.push({id: i, name: name, price: price});
     }
     appData.adaptive = confirm("Нужен ли адаптив на сайте?");
     do {
       i++;
-      let name = prompt("Какой дополнительный тип услуги нужен?");
+      let name = appData.checkName("Какой дополнительный тип услуги нужен?");
       appData.services[name] = +appData.checkPrice("Сколько это будет стоить?");
       
     } while (i < 2);
   },
   addPrices: function() {
-
+    appData.screenPrice = appData.screens.reduce(
+    (previousValue, currentValue) => previousValue.price + currentValue.price
+    );
   },
   getAllServicePrices: function () {
     for (let key in appData.services) {
