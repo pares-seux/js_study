@@ -1,9 +1,10 @@
 "use strict";
 
-const titleH1 = document.getElementsByTagName('h1');
-const buttons = document.getElementsByClassName('handler_btn');
+const title = document.getElementsByTagName('h1')[0];
+const buttonStart = document.getElementsByClassName('handler_btn')[0];
+const buttonReset = document.getElementsByClassName('handler_btn')[1];
 const addButton = document.querySelector('.screen-btn');
-const inputRange = document.querySelector('.rollback input[type=\'range\']')
+const inputRange = document.querySelector('.rollback input[type="range"]')
 const rangeValue = document.querySelector('.rollback span.range-value');
 const percent = [], numbers = [], totalInput = [];
 let screen = document.querySelectorAll('.screen');
@@ -34,7 +35,7 @@ const appData = {
     return !isNaN(parseFloat(num)) && isFinite(num) && /^\d+$/.test(num);
   },
   isString: function (str) {
-    return isNaN(str) && !/^\d+$/.test(str) && /^\w+$/.test(str);
+    return isNaN(str) && !/^\d+$/.test(str) && /^[a-zA-zА-Яа-яЁё0-9]+$/.test(str);
   },
   checkPrice: function (str) {
     let result = prompt(str);
@@ -52,7 +53,7 @@ const appData = {
   },
   asking: function() {
     let i = 0;
-    appData.title = titleH1[0]; //appData.checkName("Как называется ваш проект?");
+    appData.title = appData.checkName("Как называется ваш проект?");
     for (let i=0; i<2; i++) {
           let name = appData.checkName("Какие типы экранов нужно разработать?" + "");
           let price = +appData.checkPrice("Сколько будет стоить данная работа?");
@@ -103,7 +104,11 @@ const appData = {
   },
   logger: function() {
     for (let element in appData) {
-      console.log(element, typeof(appData[element]));
+      if (typeof(appData[element]) !== 'function') {
+        console.log(element, typeof(appData[element]), appData[element]);
+      } else {
+        console.log(element, typeof(appData[element]));
+      }
     }
   },
   start: function() {
@@ -121,3 +126,4 @@ const appData = {
 //appData.start();
 
 
+console.log (buttonReset);
