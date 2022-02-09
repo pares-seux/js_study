@@ -14,7 +14,7 @@ const appData = {
     return !isNaN(parseFloat(num)) && isFinite(num) && /^\d+$/.test(num);
   },
   isString: function (str) {
-    return isNaN(str) && !/^\d+$/.test(str) && /^\w+$/.test(str);
+    return isNaN(str) && !/^\d+$/.test(str) && /^[a-zA-zА-Яа-яЁё0-9]+$/.test(str);
   },
   checkPrice: function (str) {
     let result = prompt(str);
@@ -45,7 +45,6 @@ const appData = {
       appData.services[name] = +appData.checkPrice("Сколько это будет стоить?");
       
     } while (i < 2);
-    console.log(appData.services);
   },
   addPrices: function() {
     appData.screenPrice = appData.screens.reduce(
@@ -83,7 +82,12 @@ const appData = {
   },
   logger: function() {
     for (let element in appData) {
-      console.log(element, typeof(appData[element]));
+      if (typeof(appData[element]) !== 'function') {
+        console.log(element, typeof(appData[element]), appData[element]);
+      } else {
+        console.log(element, typeof(appData[element]));
+      }
+        
     }
   },
   start: function() {
