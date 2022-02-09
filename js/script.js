@@ -16,6 +16,8 @@ for (let element of document.querySelectorAll('.other-items')) {
     numbers.push(element);
   }
 }
+const [percent1, percent2] = percent;
+const [number1, number2, number3, munber4, number5] = numbers;
 
 for (let element of document.getElementsByClassName('total-input')) {
   totalInput.push(element);
@@ -124,6 +126,3 @@ const appData = {
 
 
 //appData.start();
-
-
-console.log ();
