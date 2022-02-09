@@ -126,4 +126,4 @@ const appData = {
 //appData.start();
 
 
-console.log (buttonReset);
+console.log ();
