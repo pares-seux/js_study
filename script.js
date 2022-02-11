@@ -14,13 +14,7 @@ const appData = {
     return !isNaN(parseFloat(num)) && isFinite(num) && /^\d+$/.test(num);
   },
   isString: function (str) {
-    let checkString = false;
-    str.split(' ').forEach(function(element) { 
-      if (/^[a-zA-zА-Яа-яЁё0-9\s]+$/.test(element) && !isFinite(element)) {
-        checkString = true;
-      } 
-    });
-    return isNaN(str) && checkString;
+    return isNaN(str), !/^\d+$/.test(str.replace(" ",""));
   },
   checkPrice: function (str) {
     let result = prompt(str);
@@ -99,6 +93,7 @@ const appData = {
   start: function() {
     appData.asking();
     appData.getAllServicePrices();
+    appData.addPrices();
     appData.getFullPrice(appData.allServicePrices, appData.screenPrice);
     appData.getServicePercentPrices(appData.fullPrice, appData.fullPrice * (appData.rollback / 100));
     appData.getTitle(appData.title.trim());
