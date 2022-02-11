@@ -14,7 +14,13 @@ const appData = {
     return !isNaN(parseFloat(num)) && isFinite(num) && /^\d+$/.test(num);
   },
   isString: function (str) {
-    return isNaN(str) && !/^\d+$/.test(str) && /^[a-zA-zА-Яа-яЁё0-9\s]+$/.test(str);
+    let checkString = false;
+    str.split(' ').forEach(function(element) { 
+      if (/^[a-zA-zА-Яа-яЁё0-9\s]+$/.test(element) && !isFinite(element)) {
+        checkString = true;
+      } 
+    });
+    return isNaN(str) && checkString;
   },
   checkPrice: function (str) {
     let result = prompt(str);
