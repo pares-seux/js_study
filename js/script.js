@@ -54,15 +54,14 @@ const appData = {
     }
   },
   addScreenBlock: function () {
-    screen = document.querySelectorAll(".screen");
     const cloneScreen = screen[0].cloneNode(true);
     cloneScreen.querySelector("select").value = "";
     cloneScreen.querySelector("input[type=text]").value = "";
     screen[screen.length - 1].after(cloneScreen);
+    screen = document.querySelectorAll(".screen");
   },
   addScreens: function () {
     let valid = true;
-    screen = document.querySelectorAll(".screen");
     screen.forEach(function (screen, index) {
       const select = screen.querySelector("select");
       const input = screen.querySelector("input");
