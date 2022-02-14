@@ -132,11 +132,22 @@ const appData = {
     totalFullCount.value = appData.fullPrice;
     totalCountRollback.value = appData.servicePercentPrices;
   },  
+  rollbackListener: function() {
+    inputRange.removeEventListener("input", appData.addRollback);
+
+    inputRange.addEventListener("input", function(event) {
+      rangeValue.textContent = event.target.value + "%";
+      appData.rollback = event.target.value;
+      appData.servicePercentPrices = Math.round(appData.fullPrice + appData.fullPrice * (appData.rollback / 100));
+      totalCountRollback.value = appData.servicePercentPrices;
+    });
+  },
   start: function() {
     console.log("start");
     appData.addServices();
     appData.addPrices();
     appData.showResult();
+    appData.rollbackListener();
     //appData.logger();
   },
   
