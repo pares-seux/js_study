@@ -134,7 +134,7 @@ const appData = {
   },  
   rollbackListener: function() {
     inputRange.removeEventListener("input", appData.addRollback);
-
+    inputRange.removeEventListener("change", appData.addRollback);
     inputRange.addEventListener("input", function(event) {
       rangeValue.textContent = event.target.value + "%";
       appData.rollback = event.target.value;
