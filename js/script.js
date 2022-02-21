@@ -49,16 +49,23 @@ const appData = {
   },
   reset: function () {
     document
-      .querySelectorAll(".main-controls__input input[type=text]")
-      .forEach((item) => {
+      .querySelectorAll(".total-input")
+      .forEach((item) => (item.value = ""));
+    screen.forEach((item, index) => {
+      if (index === 0) {
+        item.querySelector("select").value = "";
         item.removeAttribute("disabled");
-        item.value = "";
-      });
-    document.querySelectorAll("select").forEach((item) => {
-      item.removeAttribute("disabled");
-      item.value = "";
+        item.querySelector("input[type=text]").value = "";
+        item.querySelector("input[type=text]").removeAttribute("disabled");
+      } else {
+        item.remove();
+      }
     });
-    screen = [screen.pop()];
+    document
+      .querySelectorAll(".custom-checkbox")
+      .forEach((item) => (item.checked = false));
+    inputRange.value = 0;
+    rangeValue.textContent = 0 + "%";
     buttonReset.style = "display: none";
     buttonStart.style = "display: block";
   },
