@@ -8,6 +8,9 @@ const inputRange = document.querySelector('.rollback input[type="range"]');
 const rangeValue = document.querySelector(".rollback span.range-value");
 const otherItemsPercent = document.querySelectorAll(".other-items.percent");
 const otherItemsNumbers = document.querySelectorAll(".other-items.number");
+const toggleCmsBlock = document.querySelector("#cms-open");
+const cmsVariants = document.querySelector(".hidden-cms-variants");
+const cmsInput = cmsVariants.querySelector("#cms-other-input");
 const totalInput = [];
 let screen = document.querySelectorAll(".screen");
 
@@ -26,6 +29,7 @@ const appData = {
   rollback: 0,
   servicePricesPercent: 0,
   servicePricesNumber: 0,
+  cmsPrice: 0,
   fullPrice: 0,
   servicePercentPrices: 0,
   servicesPercent: {},
@@ -47,6 +51,17 @@ const appData = {
       alert("Введите значение!");
     }
   },
+  showCmsBlock: function () {
+    if (toggleCmsBlock.checked === true) {
+      cmsVariants.style = "display: flex";
+      cmsVariants.querySelector(".main-controls__input").style =
+        "display: flex";
+    } else {
+      cmsVariants.style = "display: none";
+      cmsVariants.querySelector(".main-controls__input").style =
+        "display: none";
+    }
+  },
   reset: function () {
     document
       .querySelectorAll(".total-input")
@@ -66,6 +81,9 @@ const appData = {
       .forEach((item) => (item.checked = false));
     inputRange.value = 0;
     rangeValue.textContent = 0 + "%";
+    toggleCmsBlock.checked = false;
+    cmsVariants.style = "display: none";
+    cmsVariants.querySelector(".main-controls__input").style = "display: none";
     buttonReset.style = "display: none";
     buttonStart.style = "display: block";
   },
@@ -76,6 +94,7 @@ const appData = {
     addButton.addEventListener("click", this.addScreenBlock);
     inputRange.addEventListener("input", this.addRollback);
     inputRange.addEventListener("change", this.addRollback);
+    toggleCmsBlock.addEventListener("change", this.showCmsBlock);
   },
   addTitle: function () {
     document.title = title.textContent;
@@ -144,8 +163,17 @@ const appData = {
         this.screenPrice * (this.servicesPercent[key] / 100);
     }
 
+    this.cmsPrice =
+      (this.screenPrice +
+        this.servicePricesNumber +
+        this.servicePricesPercent) *
+      (+cmsInput.value / 100);
+
     this.fullPrice =
-      this.screenPrice + this.servicePricesNumber + this.servicePricesPercent;
+      this.screenPrice +
+      this.servicePricesNumber +
+      this.servicePricesPercent +
+      this.cmsPrice;
 
     this.servicePercentPrices = Math.round(
       this.fullPrice + this.fullPrice * (this.rollback / 100)
