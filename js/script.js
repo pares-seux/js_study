@@ -10,6 +10,7 @@ const otherItemsPercent = document.querySelectorAll(".other-items.percent");
 const otherItemsNumbers = document.querySelectorAll(".other-items.number");
 const toggleCmsBlock = document.querySelector("#cms-open");
 const cmsVariants = document.querySelector(".hidden-cms-variants");
+const cmsSelect = document.getElementById("cms-select");
 const cmsInput = cmsVariants.querySelector("#cms-other-input");
 const totalInput = [];
 let screen = document.querySelectorAll(".screen");
@@ -49,15 +50,6 @@ const appData = {
       buttonStart.style = "display: none";
     } else {
       alert("Введите значение!");
-    }
-  },
-  showCmsBlock: function () {
-    if (toggleCmsBlock.checked === true) {
-      cmsVariants.style = "display: flex";
-      //cmsVariants.querySelector(".main-controls__input").style = ("display: flex");
-    } else {
-      cmsVariants.style = "display: none";
-      //cmsVariants.querySelector(".main-controls__input").style = ("display: none");
     }
   },
   reset: function () {
@@ -106,7 +98,23 @@ const appData = {
     this.addRollback = this.addRollback.bind(this);
     inputRange.addEventListener("input", this.addRollback);
     //  inputRange.addEventListener("change", () => this.addRollback);
-    toggleCmsBlock.addEventListener("change", () => this.showCmsBlock());
+    toggleCmsBlock.addEventListener("change", () => {
+      if (toggleCmsBlock.checked === true) {
+        cmsVariants.style = "display: flex";
+      } else {
+        cmsVariants.style = "display: none";
+      }
+    });
+    cmsSelect.addEventListener("change", () => {
+      if (cmsSelect.options.selectedIndex === 1) {
+        cmsVariants.querySelector(".main-controls__input").style =
+          "display: flex";
+      } else {
+        cmsInput.value = "";
+        cmsVariants.querySelector(".main-controls__input").style =
+          "display: none";
+      }
+    });
   },
   addTitle: function () {
     document.title = title.textContent;
@@ -189,15 +197,6 @@ const appData = {
       this.fullPrice + this.fullPrice * (this.rollback / 100)
     );
   },
-  // logger: function() {
-  //   for (let element in appData) {
-  //     if (typeof(appData[element]) !== 'function') {
-  //       console.log(element, typeof(appData[element]), appData[element]);
-  //     } else {
-  //       console.log(element, typeof(appData[element]));
-  //     }
-  //   }
-  // },
   showResult: function () {
     total.value = this.screenPrice;
     totalCount.value = this.screenSum;
@@ -224,7 +223,6 @@ const appData = {
     this.addPrices();
     this.showResult();
     this.rollbackListener();
-    //appData.logger();
   },
 };
 
