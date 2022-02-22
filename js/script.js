@@ -54,12 +54,10 @@ const appData = {
   showCmsBlock: function () {
     if (toggleCmsBlock.checked === true) {
       cmsVariants.style = "display: flex";
-      cmsVariants.querySelector(".main-controls__input").style =
-        "display: flex";
+      //cmsVariants.querySelector(".main-controls__input").style = ("display: flex");
     } else {
       cmsVariants.style = "display: none";
-      cmsVariants.querySelector(".main-controls__input").style =
-        "display: none";
+      //cmsVariants.querySelector(".main-controls__input").style = ("display: none");
     }
   },
   reset: function () {
@@ -86,6 +84,8 @@ const appData = {
     cmsVariants.querySelector(".main-controls__input").style = "display: none";
     buttonReset.style = "display: none";
     buttonStart.style = "display: block";
+    cmsVariants.querySelector("select").removeAttribute("disabled");
+    cmsVariants.querySelector("select").value = "";
     this.screenPrice = 0;
     this.screenSum = 0;
     this.servicePricesPercent = 0;
@@ -103,18 +103,17 @@ const appData = {
     buttonStart.addEventListener("click", () => this.checkAnswers());
     buttonReset.addEventListener("click", () => this.reset());
     addButton.addEventListener("click", () => this.addScreenBlock());
-    inputRange.addEventListener("input", () => this.addRollback);
-    inputRange.addEventListener("change", () => this.addRollback);
-    toggleCmsBlock.addEventListener("change", () => this.showCmsBlock);
+    this.addRollback = this.addRollback.bind(this);
+    inputRange.addEventListener("input", this.addRollback);
+    //  inputRange.addEventListener("change", () => this.addRollback);
+    toggleCmsBlock.addEventListener("change", () => this.showCmsBlock());
   },
   addTitle: function () {
     document.title = title.textContent;
   },
   addRollback: function (event) {
     rangeValue.textContent = event.target.value + "%";
-    if (event.type === "change") {
-      this.rollback = event.target.value;
-    }
+    this.rollback = event.target.value;
   },
   addScreenBlock: function () {
     const cloneScreen = screen[0].cloneNode(true);
@@ -208,8 +207,8 @@ const appData = {
     totalCountRollback.value = this.servicePercentPrices;
   },
   rollbackListener: function () {
-    inputRange.removeEventListener("input", () => this.addRollback);
-    inputRange.removeEventListener("change", () => this.addRollback);
+    inputRange.removeEventListener("input", this.addRollback);
+    inputRange.removeEventListener("change", this.addRollback);
     inputRange.addEventListener("input", (event) => {
       rangeValue.textContent = event.target.value + "%";
       this.rollback = event.target.value;
