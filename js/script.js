@@ -35,8 +35,8 @@ const appData = {
   servicesPercent: {},
   servicesNumber: {},
   checkAnswers: function () {
-    if (appData.addScreens()) {
-      appData.start();
+    if (this.addScreens()) {
+      this.start();
       document
         .querySelectorAll(".main-controls__input input[type=text]")
         .forEach((item) => {
@@ -92,15 +92,20 @@ const appData = {
     this.servicePricesNumber = 0;
     this.fullPrice = 0;
     this.servicePercentPrices = 0;
+    this.screens = [];
+    this.rollback = 0;
+    this.cmsPrice = 0;
+    this.servicesPercent = {};
+    this.servicesNumber = {};
   },
   init: function () {
-    appData.addTitle();
-    buttonStart.addEventListener("click", this.checkAnswers);
-    buttonReset.addEventListener("click", this.reset);
-    addButton.addEventListener("click", this.addScreenBlock);
-    inputRange.addEventListener("input", this.addRollback);
-    inputRange.addEventListener("change", this.addRollback);
-    toggleCmsBlock.addEventListener("change", this.showCmsBlock);
+    this.addTitle();
+    buttonStart.addEventListener("click", () => this.checkAnswers());
+    buttonReset.addEventListener("click", () => this.reset());
+    addButton.addEventListener("click", () => this.addScreenBlock());
+    inputRange.addEventListener("input", () => this.addRollback);
+    inputRange.addEventListener("change", () => this.addRollback);
+    toggleCmsBlock.addEventListener("change", () => this.showCmsBlock);
   },
   addTitle: function () {
     document.title = title.textContent;
@@ -203,8 +208,8 @@ const appData = {
     totalCountRollback.value = this.servicePercentPrices;
   },
   rollbackListener: function () {
-    inputRange.removeEventListener("input", this.addRollback);
-    inputRange.removeEventListener("change", this.addRollback);
+    inputRange.removeEventListener("input", () => this.addRollback);
+    inputRange.removeEventListener("change", () => this.addRollback);
     inputRange.addEventListener("input", (event) => {
       rangeValue.textContent = event.target.value + "%";
       this.rollback = event.target.value;
