@@ -69,7 +69,7 @@ const appData = {
     screen.forEach((item, index) => {
       if (index === 0) {
         item.querySelector("select").value = "";
-        item.removeAttribute("disabled");
+        item.querySelector("select").removeAttribute("disabled");
         item.querySelector("input[type=text]").value = "";
         item.querySelector("input[type=text]").removeAttribute("disabled");
       } else {
@@ -86,6 +86,12 @@ const appData = {
     cmsVariants.querySelector(".main-controls__input").style = "display: none";
     buttonReset.style = "display: none";
     buttonStart.style = "display: block";
+    this.screenPrice = 0;
+    this.screenSum = 0;
+    this.servicePricesPercent = 0;
+    this.servicePricesNumber = 0;
+    this.fullPrice = 0;
+    this.servicePercentPrices = 0;
   },
   init: function () {
     appData.addTitle();
