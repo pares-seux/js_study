@@ -30,6 +30,7 @@ const appData = {
   rollback: 0,
   servicePricesPercent: 0,
   servicePricesNumber: 0,
+  cmsPercent: 0,
   cmsPrice: 0,
   fullPrice: 0,
   servicePercentPrices: 0,
@@ -78,6 +79,8 @@ const appData = {
     buttonStart.style = "display: block";
     cmsVariants.querySelector("select").removeAttribute("disabled");
     cmsVariants.querySelector("select").value = "";
+    cmsInput.removeAttribute("disabled");
+    cmsInput.value = "";
     this.screenPrice = 0;
     this.screenSum = 0;
     this.servicePricesPercent = 0;
@@ -86,6 +89,7 @@ const appData = {
     this.servicePercentPrices = 0;
     this.screens = [];
     this.rollback = 0;
+    this.cmsPercent = 0;
     this.cmsPrice = 0;
     this.servicesPercent = {};
     this.servicesNumber = {};
@@ -106,13 +110,14 @@ const appData = {
       }
     });
     cmsSelect.addEventListener("change", () => {
-      if (cmsSelect.options.selectedIndex === 1) {
+      if (isNaN(parseInt(cmsSelect[cmsSelect.options.selectedIndex].value))) {
         cmsVariants.querySelector(".main-controls__input").style =
           "display: flex";
       } else {
         cmsInput.value = "";
         cmsVariants.querySelector(".main-controls__input").style =
           "display: none";
+        this.cmsPercent = parseInt(cmsSelect[cmsSelect.options.selectedIndex].value);
       }
     });
   },
@@ -165,6 +170,7 @@ const appData = {
         this.servicesNumber[label.textContent] = +input.value;
       }
     });
+    this.cmsPercent = +cmsInput.value;
   },
   addPrices: function () {
     this.screens.forEach((element) => {
@@ -185,7 +191,7 @@ const appData = {
       (this.screenPrice +
         this.servicePricesNumber +
         this.servicePricesPercent) *
-      (+cmsInput.value / 100);
+      (this.cmsPercent / 100);
 
     this.fullPrice =
       this.screenPrice +
@@ -218,7 +224,6 @@ const appData = {
     });
   },
   start: function () {
-    console.log("start");
     this.addServices();
     this.addPrices();
     this.showResult();
