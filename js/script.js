@@ -68,6 +68,7 @@ const appData = {
         item.remove();
       }
     });
+    screen = document.querySelectorAll(".screen");
     document
       .querySelectorAll(".custom-checkbox")
       .forEach((item) => (item.checked = false));
