@@ -39,6 +39,7 @@ const appData = {
   checkAnswers: function () {
     if (this.addScreens()) {
       this.start();
+      addButton.setAttribute("disabled", "disabled");
       document
         .querySelectorAll(".main-controls__input input[type=text]")
         .forEach((item) => {
@@ -77,6 +78,7 @@ const appData = {
     cmsVariants.querySelector(".main-controls__input").style = "display: none";
     buttonReset.style = "display: none";
     buttonStart.style = "display: block";
+    addButton.removeAttribute("disabled");
     cmsVariants.querySelector("select").removeAttribute("disabled");
     cmsVariants.querySelector("select").value = "";
     cmsInput.removeAttribute("disabled");
@@ -87,12 +89,13 @@ const appData = {
     this.servicePricesNumber = 0;
     this.fullPrice = 0;
     this.servicePercentPrices = 0;
-    this.screens = [];
+    this.screens.splice(0, this.screens.length);
     this.rollback = 0;
     this.cmsPercent = 0;
     this.cmsPrice = 0;
     this.servicesPercent = {};
     this.servicesNumber = {};
+    console.log(this);
   },
   init: function () {
     this.addTitle();
