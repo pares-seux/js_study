@@ -117,7 +117,9 @@ const appData = {
         cmsInput.value = "";
         cmsVariants.querySelector(".main-controls__input").style =
           "display: none";
-        this.cmsPercent = parseInt(cmsSelect[cmsSelect.options.selectedIndex].value);
+        this.cmsPercent = parseInt(
+          cmsSelect[cmsSelect.options.selectedIndex].value
+        );
       }
     });
   },
@@ -170,7 +172,9 @@ const appData = {
         this.servicesNumber[label.textContent] = +input.value;
       }
     });
-    this.cmsPercent = +cmsInput.value;
+    if (this.cmsPercent === 0) {
+      this.cmsPercent = +cmsInput.value;
+    }
   },
   addPrices: function () {
     this.screens.forEach((element) => {
